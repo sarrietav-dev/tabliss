@@ -51,7 +51,7 @@ async function getQuoteOfTheDay(category?: string) {
 
 // Get bible verse of the day
 async function getBibleVerse() {
-  const res = await fetch("https://quotes.rest/bible/vod.json");
+  const res = await fetch("https://beta.ourmanna.com/api/v1/get");
 
   const body = await res.json();
 
@@ -62,15 +62,10 @@ async function getBibleVerse() {
     };
   }
 
-  if (body && body.contents) {
+  if (body && body.verse && body.verse.details) {
     return {
-      author:
-        body.contents.book +
-        " " +
-        body.contents.chapter +
-        ":" +
-        body.contents.number,
-      quote: body.contents.verse,
+      author: body.reference,
+      quote: body.text,
     };
   }
 
